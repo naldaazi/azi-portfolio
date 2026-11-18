@@ -31,6 +31,9 @@
   --shadow: 0 18px 44px -28px rgba(11, 30, 63, 0.45);
   --shadow-lift: 0 26px 60px -32px rgba(11, 30, 63, 0.5);
   --ok: #2e9e6b;
+  --blob-1: #d9e4fb;
+  --blob-2: #e6ecdc;
+  --blob-3: #f2e7dc;
   --radius: 20px;
   --type-scale: 1;
   --ease: cubic-bezier(0.22, 0.8, 0.22, 1);
@@ -57,6 +60,9 @@ html[data-theme="dark"] {
   --hair-strong: rgba(255, 255, 255, 0.2);
   --shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.8);
   --shadow-lift: 0 26px 60px -30px rgba(0, 0, 0, 0.9);
+  --blob-1: #14263f;
+  --blob-2: #122a22;
+  --blob-3: #1d1a33;
 }
 
 /* ── Accessibility states ────────────────────────────────── */
@@ -258,10 +264,51 @@ img {
    ═══════════════════════════════════════════════════════════ */
 
 .app {
+  position: relative;
+  z-index: 1;
   display: flex;
   height: 100dvh;
   overflow: hidden;
-  background: var(--bg);
+  background: transparent;
+}
+
+/* ── Animated background wash ────────────────────────────── */
+
+.bg-anim {
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.75;
+  filter: blur(70px) saturate(115%);
+  background-image:
+    radial-gradient(38% 34% at 22% 28%, var(--blob-1), transparent 62%),
+    radial-gradient(34% 30% at 78% 18%, var(--blob-2), transparent 60%),
+    radial-gradient(40% 36% at 62% 82%, var(--blob-3), transparent 62%);
+  animation: bgDrift 34s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes bgDrift {
+  0% {
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2.5%, 1%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-1%, 2.5%, 0) scale(1.03);
+  }
+}
+
+html[data-motion="reduce"] .bg-anim {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-anim {
+    animation: none;
+  }
 }
 
 .stage {
@@ -269,7 +316,7 @@ img {
   min-width: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: var(--stage);
+  background-color: color-mix(in srgb, var(--stage) 93%, transparent);
   border-radius: 26px;
   margin: 12px 12px 12px 0;
   border: 1px solid var(--hair);
@@ -1749,6 +1796,195 @@ a.pcard:hover {
   background: var(--card-2);
   margin-top: 26px;
   box-shadow: var(--shadow);
+}
+
+/* ── Live workflow ───────────────────────────────────────── */
+
+.flow {
+  margin-top: 30px;
+  padding: 16px;
+  border: 1px solid var(--hair);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.flow-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.flow-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-strong);
+}
+
+.flow-live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--faint);
+  flex: none;
+}
+
+.flow-live.is-on {
+  background: #2e9e6b;
+  box-shadow: 0 0 0 0 rgba(46, 158, 107, 0.55);
+  animation: flowPulse 1.8s var(--ease) infinite;
+}
+
+@keyframes flowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 158, 107, 0.5);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px rgba(46, 158, 107, 0);
+  }
+}
+
+.flow-btn {
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--hair-strong);
+  background: var(--card-2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.16s var(--ease);
+}
+
+.flow-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.flow-bar {
+  height: 4px;
+  margin: 12px 0 10px;
+  border-radius: 999px;
+  background: var(--hair);
+  overflow: hidden;
+}
+
+.flow-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.6s var(--ease);
+}
+
+.flow-status {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 10px;
+}
+
+.flow-list {
+  display: grid;
+}
+
+.flow-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  padding: 9px 0;
+}
+
+.flow-step::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  bottom: -4px;
+  width: 1px;
+  background: var(--hair);
+}
+
+.flow-step:last-child::before {
+  display: none;
+}
+
+.flow-dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  border: 1px solid var(--hair-strong);
+  background: var(--card);
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 8.5px;
+  line-height: 1;
+  flex: none;
+  transition:
+    background 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.flow-step.is-done .flow-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.flow-step.is-active .flow-dot {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 0 4px var(--accent-wash);
+}
+
+.flow-app {
+  display: block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.flow-label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.flow-step:not(.is-done):not(.is-active) .flow-label {
+  color: var(--faint);
+  font-weight: 500;
+}
+
+.flow-detail {
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.flow-step:not(.is-done):not(.is-active) .flow-detail {
+  opacity: 0.55;
 }
 
 /* ── Mockups ─────────────────────────────────────────────── */

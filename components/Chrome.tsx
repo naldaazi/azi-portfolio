@@ -193,6 +193,7 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      <div className="bg-anim" aria-hidden="true" />
       <BootIntro />
 
       <a className="skip-link" href="#main">
