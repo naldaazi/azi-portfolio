@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Chrome from "@/components/Chrome";
+import Reveal from "@/components/Reveal";
+import { Footer } from "@/components/Sections";
 import { site } from "@/lib/content";
 
 export function generateStaticParams() {
@@ -34,12 +36,12 @@ export default async function ProjectPage({
 
   return (
     <>
-      <Chrome />
-      <main id="main" className="shell">
-        <div className="panel">
-          <div className="detail-hero">
+      <Reveal />
+      <Chrome>
+        <div className="wrap">
+          <div className="detail-hero" style={{ padding: 0 }}>
             <a
-              href="/#work"
+              href="/projects"
               className="label"
               style={{ display: "inline-flex", alignItems: "center", gap: 7 }}
             >
@@ -54,17 +56,19 @@ export default async function ProjectPage({
               All projects
             </a>
 
-            <div style={{ display: "flex", gap: 8, marginTop: 22 }}>
-              <span className={`chip${project.kind === "Client work" ? " chip-accent" : ""}`}>
+            <div style={{ display: "flex", gap: 8, marginTop: 20 }}>
+              <span
+                className={`chip${project.kind === "Client work" ? " chip-accent" : ""}`}
+              >
                 {project.kind}
               </span>
               <span className="chip">{project.year}</span>
             </div>
 
-            <h1 className="h2" style={{ marginTop: 18, maxWidth: "24ch" }}>
+            <h1 className="h2" style={{ marginTop: 16, maxWidth: "26ch" }}>
               {project.title}
             </h1>
-            <p className="body-lg" style={{ marginTop: 16, maxWidth: "52ch" }}>
+            <p className="body-lg" style={{ marginTop: 14, maxWidth: "54ch" }}>
               {project.summary}
             </p>
 
@@ -77,14 +81,14 @@ export default async function ProjectPage({
             </div>
           </div>
 
-          <div className="detail-body">
+          <div className="detail-body" style={{ padding: "26px 0 0", marginTop: 24 }}>
             <div>
               <span className="label">The problem</span>
               <p className="body-lg" style={{ marginTop: 10 }}>
                 {project.problem}
               </p>
 
-              <div style={{ marginTop: 38 }}>
+              <div style={{ marginTop: 34 }}>
                 <span className="label">What I did</span>
                 <div className="steps">
                   {project.approach.map((step, i) => (
@@ -97,27 +101,21 @@ export default async function ProjectPage({
               </div>
 
               <div className="result-box">
-                <span
-                  className="label"
-                  style={{ color: "var(--accent-soft)" }}
-                >
+                <span className="label" style={{ color: "var(--accent-ink)" }}>
                   Result
                 </span>
-                <p style={{ marginTop: 8, color: "var(--text)" }}>{project.result}</p>
+                <p style={{ marginTop: 8 }}>{project.result}</p>
               </div>
 
-              <div style={{ marginTop: 38 }}>
+              <div style={{ marginTop: 34 }}>
                 <span className="label">Next</span>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 10,
-                    marginTop: 12,
-                  }}
-                >
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 12 }}>
                   {others.map((o) => (
-                    <a key={o.slug} href={`/work/${o.slug}`} className="chip" style={{ padding: "8px 12px" }}>
+                    <a
+                      key={o.slug}
+                      href={`/projects/${o.slug}`}
+                      className="tool-tag"
+                    >
                       {o.title}
                     </a>
                   ))}
@@ -130,12 +128,16 @@ export default async function ProjectPage({
                 <span className="label">At a glance</span>
                 <div style={{ display: "grid", gap: 14, marginTop: 14 }}>
                   <div>
-                    <div className="stat-v" style={{ fontSize: 15 }}>{project.client}</div>
+                    <div className="stat-v" style={{ fontSize: 15 }}>
+                      {project.client}
+                    </div>
                     <div className="stat-l">Client</div>
                   </div>
                   {project.metrics.map((m) => (
                     <div key={m.label}>
-                      <div className="stat-v" style={{ fontSize: 20 }}>{m.value}</div>
+                      <div className="stat-v" style={{ fontSize: 20 }}>
+                        {m.value}
+                      </div>
                       <div className="stat-l">{m.label}</div>
                     </div>
                   ))}
@@ -157,14 +159,9 @@ export default async function ProjectPage({
             </aside>
           </div>
 
-          <footer className="foot">
-            <span>
-              © {new Date().getFullYear()} {site.name}
-            </span>
-            <a href="/#work">Back to all projects</a>
-          </footer>
+          <Footer />
         </div>
-      </main>
+      </Chrome>
     </>
   );
 }

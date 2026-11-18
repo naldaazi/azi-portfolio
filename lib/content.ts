@@ -288,15 +288,12 @@ export const site = {
 
   // ── Tools ────────────────────────────────────────────────
   tools: [
-    { name: "Google Workspace", level: "Advanced" },
-    { name: "ClickUp", level: "Advanced" },
-    { name: "Notion", level: "Advanced" },
-    { name: "Calendly", level: "Advanced" },
-    { name: "Zoom", level: "Advanced" },
-    { name: "Google Sheets", level: "Advanced" },
-    { name: "Zapier", level: "Intermediate" },
-    { name: "Slack", level: "Working" },
-    { name: "Canva", level: "Working" },
+    { name: "Google Workspace", level: "Advanced", mark: "G", logo: "/logos/google.svg" },
+    { name: "Notion", level: "Advanced", mark: "N", logo: "/logos/notion.svg" },
+    { name: "Zapier", level: "Intermediate", mark: "Z", logo: "/logos/zapier.svg" },
+    { name: "Zoom", level: "Advanced", mark: "Zm", logo: "/logos/zoom.svg" },
+    { name: "ClickUp", level: "Advanced", mark: "C", logo: "/logos/clickup.svg" },
+    { name: "Calendly", level: "Advanced", mark: "Cal", logo: "/logos/calendly.svg" },
   ],
 };
 

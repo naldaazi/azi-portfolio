@@ -36,8 +36,11 @@ export const metadata: Metadata = {
 
 /** Runs before first paint: restores accessibility prefs and decides whether the intro plays. */
 const bootScript = `try{
-  var s=JSON.parse(localStorage.getItem('a11y')||'{}');
   var d=document.documentElement;
+  var t=localStorage.getItem('theme');
+  if(!t)t='light';
+  d.setAttribute('data-theme',t);
+  var s=JSON.parse(localStorage.getItem('a11y')||'{}');
   if(s.size&&s.size!=='sm')d.setAttribute('data-size',s.size);
   if(s.contrast)d.setAttribute('data-contrast','high');
   if(s.motion)d.setAttribute('data-motion','reduce');

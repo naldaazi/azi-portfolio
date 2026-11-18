@@ -1,40 +1,103 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { site, explore } from "@/lib/content";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { site } from "@/lib/content";
 import BootIntro from "./BootIntro";
 import A11yPanel, { DEFAULT_A11Y, type A11ySettings } from "./A11yPanel";
 
+const MARKS: Record<string, string> = {
+  LinkedIn: "in",
+  Upwork: "Up",
+  OnlineJobs: "OJ",
+  Email: "@",
+};
+
 const NAV = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  {
+    label: "Home",
+    href: "/",
+    icon: (
+      <>
+        <path d="M3 8.5L10 3l7 5.5V17H3V8.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    label: "Projects",
+    href: "/projects",
+    icon: (
+      <>
+        <path d="M3 6.5h5l1.5 2H17v8H3v-10z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    label: "Services",
+    href: "/services",
+    icon: (
+      <>
+        <path d="M10 3l7 3.5-7 3.5-7-3.5L10 3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M3 10.5L10 14l7-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    label: "Testimonials",
+    href: "/testimonials",
+    icon: (
+      <>
+        <path d="M3 4h14v9H8l-4 3v-3H3V4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    label: "About",
+    href: "/about",
+    icon: (
+      <>
+        <circle cx="10" cy="7.5" r="3" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M4 17c0-3.2 2.7-5 6-5s6 1.8 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </>
+    ),
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+    icon: (
+      <>
+        <rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M3.5 6.5L10 11l6.5-4.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </>
+    ),
+  },
 ];
 
-function initials(name: string) {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
-export default function Chrome() {
-  const [menu, setMenu] = useState(false);
+export default function Chrome({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [a11y, setA11y] = useState(false);
   const [settings, setSettings] = useState<A11ySettings>(DEFAULT_A11Y);
+  const pathname = usePathname();
 
-  /* Restore saved preferences on mount */
   useEffect(() => {
     try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || saved === "light") setTheme(saved);
+
       const raw = localStorage.getItem("a11y");
       if (raw) setSettings({ ...DEFAULT_A11Y, ...JSON.parse(raw) });
     } catch {}
   }, []);
 
-  /* Push preferences onto <html> */
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
+  }, [theme]);
+
   useEffect(() => {
     const root = document.documentElement;
     const set = (attr: string, on: boolean, value = "") => {
@@ -46,7 +109,6 @@ export default function Chrome() {
     set("data-motion", settings.motion, "reduce");
     set("data-links", settings.links, "under");
 
-    /* Scroll reveal only runs when motion is allowed */
     const reduce =
       settings.motion ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -58,26 +120,15 @@ export default function Chrome() {
     } else {
       root.classList.add("js-reveal");
     }
+
     try {
       localStorage.setItem("a11y", JSON.stringify(settings));
     } catch {}
   }, [settings]);
 
-  /* Lock scroll while an overlay is open */
-  useEffect(() => {
-    const locked = menu || a11y;
-    document.body.style.overflow = locked ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menu, a11y]);
-
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMenu(false);
-        setA11y(false);
-      }
+      if (e.key === "Escape") setA11y(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -104,112 +155,141 @@ export default function Chrome() {
         Skip to main content
       </a>
 
-      <header className="pbar">
-        <a href="#top" className="brand" aria-label={`${site.name}, home`}>
-          <span className="brand-mark" aria-hidden="true">
-            {initials(site.name)}
-          </span>
-          <span className="brand-words">
-            <span className="brand-name">{site.name}</span>
-            <span className="brand-handle">{site.handle}</span>
-          </span>
-        </a>
+      <div className="app">
+        <aside className="sidebar">
+          <div className="sb-avatar">
+            <Image
+              src="/portrait.jpg"
+              alt={`${site.name}, ${site.role}`}
+              fill
+              priority
+              sizes="296px"
+              style={{ objectFit: "cover", objectPosition: "center 16%" }}
+            />
+          </div>
 
-        <nav className="bar-links" aria-label="Sections">
-          {NAV.map((n) => (
-            <a key={n.href} href={n.href} className="bar-link">
-              {n.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="bar-actions">
-          <button
-            className="icon-btn desk-only"
-            onClick={() => setA11y(true)}
-            aria-label="Accessibility settings"
-            title="Accessibility settings"
-          >
-            <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "-0.02em" }}>
-              Aa
-            </span>
-          </button>
-          <a className="btn btn-solid desk-only" href={site.bookingUrl} target="_blank" rel="noreferrer">
-            Book a call
-          </a>
-          <button
-            className="icon-btn mob-only"
-            onClick={() => setMenu(true)}
-            aria-label="Open menu"
-            aria-expanded={menu}
-          >
-            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+          <p className="sb-name">
+            {site.name}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
-                d="M0 1h16M0 6h16M0 11h16"
-                stroke="currentColor"
-                strokeWidth="1.5"
+                d="M12 2.2l2.3 2.1 3.1-.3 1 3 2.8 1.4-.8 3 .8 3-2.8 1.4-1 3-3.1-.3L12 21.8 9.7 19.7l-3.1.3-1-3L2.8 15.6l.8-3-.8-3 2.8-1.4 1-3 3.1.3L12 2.2z"
+                fill="var(--accent-soft)"
+              />
+              <path
+                d="M8.4 12.2l2.5 2.5 4.8-4.9"
+                stroke="#fff"
+                strokeWidth="1.9"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
-          </button>
-        </div>
-      </header>
+          </p>
+          <p className="sb-sub">
+            <span className="sb-handle">{site.handle}</span> · {site.location}
+          </p>
 
-      <div
-        className={`drawer-scrim${menu ? " is-open" : ""}`}
-        onClick={() => setMenu(false)}
-        aria-hidden="true"
-      />
-      <aside className={`drawer${menu ? " is-open" : ""}`} aria-hidden={!menu}>
-        <nav aria-label="Mobile sections">
-          {explore.map((e) => (
-            <a
-              key={e.n}
-              href={e.slug}
-              className="drawer-link"
-              onClick={() => setMenu(false)}
-            >
-              <span>
-                {e.name}
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: 11.5,
-                    color: "var(--text-faint)",
-                  }}
+          <div className="sb-socials">
+            {site.socials.map((s) => (
+              <a
+                key={s.label}
+                className="social-dot"
+                href={s.href}
+                target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel={s.href.startsWith("http") ? "noreferrer" : undefined}
+                aria-label={s.label}
+                title={s.label}
+              >
+                <span aria-hidden="true">{MARKS[s.label] ?? s.label[0]}</span>
+              </a>
+            ))}
+          </div>
+
+          <nav className="sb-nav" aria-label="Sections">
+            {NAV.map((n) => {
+              const active =
+                n.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(n.href);
+              return (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  className={`sb-link${active ? " is-active" : ""}`}
+                  aria-current={active ? "page" : undefined}
                 >
-                  {e.note}
-                </span>
-              </span>
-              <span className="drawer-n">{e.n}</span>
-            </a>
-          ))}
-        </nav>
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    {n.icon}
+                  </svg>
+                  {n.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        <div className="drawer-foot">
-          <a
-            className="btn btn-solid"
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noreferrer"
-            style={{ width: "100%" }}
-          >
-            Book a 20-minute call
-          </a>
-          <button
-            className="btn btn-line"
-            onClick={() => {
-              setMenu(false);
-              setA11y(true);
-            }}
-            style={{ width: "100%" }}
-          >
-            Accessibility settings
-          </button>
-          <a href={`mailto:${site.email}`} className="btn btn-ghost">
-            {site.email}
-          </a>
-        </div>
-      </aside>
+          <div className="sb-foot">
+            <div className="sb-tools">
+              <button
+                className={`sb-tool${theme === "light" ? " is-on" : ""}`}
+                onClick={() => setTheme("light")}
+                aria-label="Light mode"
+                aria-pressed={theme === "light"}
+                title="Light mode"
+              >
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="10" r="3.4" stroke="currentColor" strokeWidth="1.5" />
+                  <path
+                    d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M15.7 4.3l-1.4 1.4M5.7 14.3l-1.4 1.4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className={`sb-tool${theme === "dark" ? " is-on" : ""}`}
+                onClick={() => setTheme("dark")}
+                aria-label="Dark mode"
+                aria-pressed={theme === "dark"}
+                title="Dark mode"
+              >
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M16.5 12.4A7 7 0 017.6 3.5a7 7 0 108.9 8.9z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className="sb-tool"
+                onClick={() => setA11y(true)}
+                aria-label="Accessibility settings"
+                title="Accessibility settings"
+              >
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="4.6" r="1.9" fill="currentColor" />
+                  <path
+                    d="M4 7.6h12M10 7.6v5M10 12.6l-3 4M10 12.6l3 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <span>
+              © {new Date().getFullYear()} {site.name}.
+              <br />
+              All rights reserved.
+            </span>
+          </div>
+        </aside>
+
+        <main className="stage" id="main">
+          {children}
+        </main>
+      </div>
 
       <A11yPanel
         open={a11y}

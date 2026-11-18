@@ -51,6 +51,7 @@ export default function A11yPanel({ open, settings, update, reset, onClose }: Pr
         role="dialog"
         aria-label="Accessibility settings"
         aria-hidden={!open}
+        inert={!open}
       >
         <div className="a11y-head">
           <span className="a11y-title">Accessibility</span>

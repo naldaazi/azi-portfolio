@@ -135,14 +135,29 @@ Nothing else to do. Vercel rebuilds and swaps the live site in ~60 seconds.
 
 ---
 
-## 6. What's built in
+## 6. Pages
 
-- Dark, high-contrast design with a sage accent
+| Route | Contents |
+| --- | --- |
+| `/` | Bento dashboard — portrait, projects, toolkit, focus, services, testimonials |
+| `/projects` | All four case studies |
+| `/projects/[slug]` | Individual case study (problem → approach → result → metrics) |
+| `/services` | Pain points + six services |
+| `/testimonials` | Client quotes |
+| `/about` | Bio, stats, method, tools |
+| `/contact` | Booking link + email |
+
+Adding a project to `site.projects` in `lib/content.ts` automatically creates its page at `/projects/<slug>`.
+
+## 7. What's built in
+
+- Light cream + lavender dashboard, with a **light/dark toggle** in the sidebar (persisted)
+- Left sidebar: photo, verified name, handle, socials, icon nav with active state, theme + accessibility controls
+- Bento grid: portrait card, projects, toolkit, focus, services, testimonials
+- Auto-scrolling "Daily drivers" marquee with real brand logos (pauses on hover)
 - One-time boot animation with an animated workflow diagram (skippable, once per session)
-- Numbered "Explore" rail that makes the one-pager feel like a real site
-- 4 project cards, each with its own detail page (problem → approach → result → metrics)
-- Accessibility panel: text size (A / A+ / A++), high contrast, reduce motion, underline links — all persisted to `localStorage`
-- Scroll reveal that respects `prefers-reduced-motion` and degrades to fully visible without JS
+- Staggered card entrance on load, lift-on-hover, all respecting `prefers-reduced-motion`
+- Accessibility panel: text size (A / A+ / A++), high contrast, reduce motion, underline links — persisted to `localStorage`
 - Skip link, visible focus rings, 44px touch targets on coarse pointers, WCAG AA text contrast
 - `next/font` for zero-layout-shift typography, `next/image` for optimised images
-- Static prerendering — no server needed, so it deploys anywhere
+- Fully static prerendering — no server needed
