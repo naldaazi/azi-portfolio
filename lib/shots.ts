@@ -1,65 +1,84 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const EXTS = ["webp", "jpg", "jpeg", "png"];
+const EXTS = /\.(webp|jpe?g|png)$/i;
 
-/**
- * Finds every screenshot for a project in `public/projects/`.
- * Accepts `<slug>.jpg` and `<slug>-1.jpg`, `<slug>-2.jpg`, … (sorted by number).
- * Runs at build time, so dropping a file in the folder is all it takes.
- */
-export function projectShots(slug: string): string[] {
-  const dir = path.join(process.cwd(), "public", "projects");
+/** Words that identify each project inside a filename. */
+const KEYWORDS: Record<string, string[]> = {
+  "meeting-confirmation-automation": ["meeting", "confirmation", "zap"],
+  "operational-workflow-system": ["workflow", "clickup", "board"],
+  "inbox-management-system": ["inbox", "gmail", "email"],
+  "calendar-management-system": ["calendar", "schedule"],
+};
 
-  let files: string[];
+export type Media = {
+  hero: string | null;
+  proof: string[];
+  before: string | null;
+  after: string | null;
+};
+
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+function listFiles(): string[] {
   try {
-    files = fs.readdirSync(dir);
+    return fs.readdirSync(path.join(process.cwd(), "public", "projects"));
   } catch {
     return [];
   }
-
-  const found: { file: string; n: number }[] = [];
-
-  for (const file of files) {
-    const m = file.match(/^(.*?)(?:-(\d+))?\.(webp|jpe?g|png)$/i);
-    if (!m) continue;
-    if (m[1].toLowerCase() !== slug.toLowerCase()) continue;
-    found.push({ file, n: m[2] ? parseInt(m[2], 10) : 0 });
-  }
-
-  found.sort((a, b) => a.n - b.n);
-  return found.map((f) => `/projects/${f.file}`);
 }
 
-/** The first screenshot, used as the card / hero image. */
-export function projectShot(slug: string): string | null {
-  return projectShots(slug)[0] ?? null;
-}
+/**
+ * Resolves every image for a project.
+ *
+ * Matching is deliberately forgiving — a file counts if its name starts with the
+ * project slug OR contains one of the project's keywords. `before` / `after` are
+ * detected by name; anything else becomes proof (sorted by any trailing number).
+ *
+ * So all of these work:
+ *   inbox-management-system-before.jpg
+ *   Inbox before.png
+ *   inbox_after.jpg
+ */
+export function projectMedia(slug: string): Media {
+  const files = listFiles().filter((f) => EXTS.test(f));
+  const keys = KEYWORDS[slug] ?? [];
+  const nSlug = norm(slug);
 
-/** Before/after pair: `<slug>-before.jpg` and `<slug>-after.jpg`. */
-export function projectPair(slug: string): {
-  before: string | null;
-  after: string | null;
-} {
-  const dir = path.join(process.cwd(), "public", "projects");
+  const mine = files.filter((f) => {
+    const n = norm(f);
+    return n.startsWith(nSlug) || keys.some((k) => n.includes(k));
+  });
 
-  let files: string[];
-  try {
-    files = fs.readdirSync(dir);
-  } catch {
-    return { before: null, after: null };
-  }
+  const toUrl = (f: string) => `/projects/${f}`;
 
-  const find = (suffix: string) => {
-    for (const file of files) {
-      const m = file.match(/^(.*?)-([a-z]+)\.(webp|jpe?g|png)$/i);
-      if (!m) continue;
-      if (m[1].toLowerCase() !== slug.toLowerCase()) continue;
-      if (m[2].toLowerCase() !== suffix) continue;
-      return `/projects/${file}`;
-    }
-    return null;
+  const beforeFile = mine.find((f) => norm(f).includes("before")) ?? null;
+  const afterFile = mine.find((f) => norm(f).includes("after")) ?? null;
+
+  const rest = mine.filter((f) => f !== beforeFile && f !== afterFile);
+
+  const heroFile =
+    rest.find((f) => norm(f).startsWith(nSlug) && !/\d/.test(norm(f))) ?? null;
+
+  const proof = rest
+    .filter((f) => f !== heroFile)
+    .map((f) => {
+      const m = f.match(/(\d+)(?=\.\w+$)/);
+      return { f, n: m ? parseInt(m[1], 10) : 999 };
+    })
+    .sort((a, b) => a.n - b.n || a.f.localeCompare(b.f))
+    .map((o) => toUrl(o.f));
+
+  return {
+    hero: heroFile ? toUrl(heroFile) : null,
+    proof,
+    before: beforeFile ? toUrl(beforeFile) : null,
+    after: afterFile ? toUrl(afterFile) : null,
   };
+}
 
-  return { before: find("before"), after: find("after") };
+/** First available image, used by the gallery card. */
+export function projectShot(slug: string): string | null {
+  const m = projectMedia(slug);
+  return m.hero ?? m.proof[0] ?? m.before ?? m.after ?? null;
 }

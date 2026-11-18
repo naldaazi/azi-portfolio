@@ -7,7 +7,7 @@ import { Footer } from "@/components/Sections";
 import WorkflowDiagram from "@/components/WorkflowDiagram";
 import BoardMock from "@/components/BoardMock";
 import { site } from "@/lib/content";
-import { projectShots, projectPair } from "@/lib/shots";
+import { projectMedia } from "@/lib/shots";
 
 export function generateStaticParams() {
   return site.projects.map((p) => ({ slug: p.slug }));
@@ -46,10 +46,10 @@ export default async function ProjectPage({
   const others = site.projects.filter((p) => p.slug !== slug).slice(0, 3);
 
   /* A plain `<slug>.jpg` is the wide hero; numbered `-1,-2,-3` are the proof strip. */
-  const allShots = projectShots(project.slug);
-  const heroShot = allShots.find((s) => !/-\d+\.[a-z]+$/i.test(s)) ?? null;
-  const proof = allShots.filter((s) => s !== heroShot);
-  const pair = projectPair(project.slug);
+  const media = projectMedia(project.slug);
+  const heroShot = media.hero;
+  const proof = media.proof;
+  const pair = { before: media.before, after: media.after };
 
   return (
     <>
