@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Chrome from "@/components/Chrome";
 import Reveal from "@/components/Reveal";
 import { Footer } from "@/components/Sections";
-import LiveFlow from "@/components/LiveFlow";
+import WorkflowDiagram from "@/components/WorkflowDiagram";
 import { site } from "@/lib/content";
 import { projectShot } from "@/lib/shots";
 
@@ -130,7 +130,7 @@ export default async function ProjectPage({
               {project.slug === "meeting-confirmation-automation" && (
                 <div style={{ marginTop: 34 }}>
                   <span className="label">The workflow, running</span>
-                  <LiveFlow />
+                  <WorkflowDiagram />
                 </div>
               )}
 

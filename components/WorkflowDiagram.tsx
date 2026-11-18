@@ -78,9 +78,9 @@ const NODES: Node[] = [
   { id: "n5", label: "24hr Wait", sub: "Delay step", icon: I.clock, x: 77, y: 20 },
   { id: "n6", label: "Reminder", sub: "Gmail sent", icon: I.bell, x: 94, y: 20 },
 
-  { id: "b1", label: "Confirmed", sub: "Row updated", icon: I.check, x: 26, y: 76, tone: "ok" },
-  { id: "b2", label: "No-show", sub: "Follow-up queued", icon: I.hourglass, x: 60, y: 76, tone: "warn" },
-  { id: "b3", label: "Closed out", sub: "Archived", icon: I.x, x: 94, y: 76, tone: "bad" },
+  { id: "b1", label: "Confirmed", sub: "Row updated", icon: I.check, x: 26, y: 70, tone: "ok" },
+  { id: "b2", label: "No-show", sub: "Follow-up queued", icon: I.hourglass, x: 60, y: 70, tone: "warn" },
+  { id: "b3", label: "Closed out", sub: "Archived", icon: I.x, x: 94, y: 70, tone: "bad" },
 ];
 
 export default function WorkflowDiagram() {
