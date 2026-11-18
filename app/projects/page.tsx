@@ -4,9 +4,10 @@ import Reveal from "@/components/Reveal";
 import { PageHead, ProjectsGrid, Footer } from "@/components/Sections";
 
 export const metadata: Metadata = {
-  title: "Projects — Azi Nalda",
+  title: "Projects",
   description:
     "Four operations systems built, shipped and handed over: meeting automation, workflow management, inbox and calendar systems.",
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {

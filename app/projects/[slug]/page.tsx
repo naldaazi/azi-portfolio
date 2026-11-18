@@ -18,8 +18,15 @@ export async function generateMetadata({
   const project = site.projects.find((p) => p.slug === slug);
   if (!project) return { title: "Not found" };
   return {
-    title: `${project.title} — ${site.name}`,
+    title: project.title,
     description: project.summary,
+    alternates: { canonical: `/projects/${project.slug}` },
+    openGraph: {
+      title: project.title,
+      description: project.summary,
+      url: `/projects/${project.slug}`,
+      type: "article",
+    },
   };
 }
 

@@ -8,13 +8,6 @@ import { site } from "@/lib/content";
 import BootIntro from "./BootIntro";
 import A11yPanel, { DEFAULT_A11Y, type A11ySettings } from "./A11yPanel";
 
-const MARKS: Record<string, string> = {
-  LinkedIn: "in",
-  Upwork: "Up",
-  OnlineJobs: "OJ",
-  Email: "@",
-};
-
 const NAV = [
   {
     label: "Home",
@@ -199,7 +192,8 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
                 aria-label={s.label}
                 title={s.label}
               >
-                <span aria-hidden="true">{MARKS[s.label] ?? s.label[0]}</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={s.logo} alt="" width={17} height={17} aria-hidden="true" />
               </a>
             ))}
           </div>

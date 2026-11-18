@@ -30,6 +30,24 @@ export const site = {
   email: "casimiro.en@gmail.com",
   bookingUrl: "https://calendly.com/casimiro-en/1-1-30-minute-discovery-call",
 
+  // ── SEO ──────────────────────────────────────────────────
+  // TODO: change to your real domain after you connect one on Vercel.
+  url: "https://azi-portfolio.vercel.app",
+  metaDescription:
+    "Azi Nalda is an Executive Assistant and Operations Specialist in Manila. Inbox, calendar, workflow systems, automation and SOPs for founders and small teams.",
+  keywords: [
+    "executive assistant",
+    "operations specialist",
+    "virtual assistant",
+    "inbox management",
+    "calendar management",
+    "workflow systems",
+    "SOP documentation",
+    "Zapier automation",
+    "ClickUp setup",
+    "Manila virtual assistant",
+  ],
+
   // ── Hero ─────────────────────────────────────────────────
   headline: [{ text: "Nothing" }, { text: "falls through.", accent: true }],
   lede: "I keep founders organized, supported, and moving — personally and operationally. Inbox, calendar, research, meeting prep, workflow systems and SOPs: the work that has to happen consistently so you can lead.",
@@ -40,16 +58,19 @@ export const site = {
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/azi-edson-nalda-b1a6783a8/",
+      logo: "/logos/linkedin.svg",
     },
     {
       label: "Upwork",
       href: "https://www.upwork.com/freelancers/~017ae9f9e749ecfd5f",
+      logo: "/logos/upwork.svg",
     },
     {
       label: "OnlineJobs",
       href: "https://www.onlinejobs.ph/jobseekers/info/4693548",
+      logo: "/logos/onlinejobs.svg",
     },
-    { label: "Email", href: "mailto:casimiro.en@gmail.com" },
+    { label: "Email", href: "mailto:casimiro.en@gmail.com", logo: "/logos/mail.svg" },
   ],
 
   // ── Proof numbers ────────────────────────────────────────
@@ -288,7 +309,7 @@ export const site = {
 
   // ── Tools ────────────────────────────────────────────────
   tools: [
-    { name: "Google Workspace", level: "Advanced", mark: "G", logo: "/logos/google.svg" },
+    { name: "Google Workspace", level: "Advanced", mark: "G", logo: "/logos/google-g.png" },
     { name: "Notion", level: "Advanced", mark: "N", logo: "/logos/notion.svg" },
     { name: "Zapier", level: "Intermediate", mark: "Z", logo: "/logos/zapier.svg" },
     { name: "Zoom", level: "Advanced", mark: "Zm", logo: "/logos/zoom.svg" },

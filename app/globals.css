@@ -336,20 +336,23 @@ img {
   flex: none;
   border-radius: 50%;
   border: 1px solid var(--hair-strong);
-  background: var(--card);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--ink);
+  background: #fff;
   transition:
     border-color 0.18s var(--ease),
-    background 0.18s var(--ease),
-    transform 0.18s var(--ease);
+    transform 0.18s var(--ease),
+    box-shadow 0.18s var(--ease);
+}
+
+.social-dot img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
 }
 
 .social-dot:hover {
   border-color: var(--accent);
-  background: var(--accent-wash);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .sb-nav {
@@ -581,7 +584,7 @@ img {
   gap: 6px;
   padding-right: 6px;
   flex: none;
-  animation: marquee 26s linear infinite;
+  animation: marquee 72s linear infinite;
 }
 
 .drivers:hover .drivers-list,
@@ -2067,4 +2070,230 @@ html[data-motion="reduce"] .stage {
   .desk-only {
     display: none !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   READABILITY SCALE — optimised for low-vision / older readers
+   Body text ≥16px, nothing below 11px, line-height ≥1.6.
+   Overrides the component sizes above; tune everything here.
+   ═══════════════════════════════════════════════════════════ */
+
+body {
+  font-size: 16.5px;
+  line-height: 1.68;
+}
+
+.body,
+.body-lg {
+  font-size: 16.5px;
+  line-height: 1.7;
+}
+
+.head-lede {
+  font-size: 16.5px;
+  line-height: 1.65;
+}
+
+.label,
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.display {
+  font-size: calc(clamp(32px, 3.4vw, 44px) * var(--type-scale));
+}
+
+.h2 {
+  font-size: calc(clamp(26px, 2.9vw, 36px) * var(--type-scale));
+}
+
+.btn {
+  font-size: 15px;
+  padding: 12px 20px;
+}
+
+.btn-ghost {
+  font-size: 14px;
+}
+
+/* Sidebar */
+.sb-name {
+  font-size: 21px;
+}
+.sb-sub {
+  font-size: 14px;
+}
+.sb-handle {
+  font-size: 12px;
+}
+.sb-link {
+  font-size: 15.5px;
+  padding: 12px 12px;
+}
+.sb-foot {
+  font-size: 12.5px;
+}
+.social-dot {
+  font-size: 12px;
+}
+.driver {
+  font-size: 14px;
+  padding: 7px 13px 7px 8px;
+}
+
+/* Bento */
+.bcard-title {
+  font-size: 16px;
+}
+.bcard-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.bcard-more {
+  font-size: 11px;
+}
+.bp-hi {
+  font-size: 11px;
+}
+.bp-name {
+  font-size: calc(clamp(27px, 2.5vw, 33px) * var(--type-scale));
+}
+.bp-meta {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+}
+.bp-tag {
+  font-size: 15px;
+}
+.bp-links {
+  font-size: 12.5px;
+}
+.bp-video {
+  font-size: 11px;
+}
+.prow-n {
+  font-size: 11px;
+}
+.prow-t {
+  font-size: 14px;
+}
+.prow-s {
+  font-size: 12px;
+}
+.mini-row {
+  font-size: 13.5px;
+  gap: 9px;
+}
+.mini-row span {
+  font-size: 10.5px;
+}
+.pill-badge {
+  font-size: 12px;
+}
+.bquote-text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.bquote-who {
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+/* Sections */
+.card-title {
+  font-size: 18.5px;
+}
+.card-desc {
+  font-size: 15px;
+  line-height: 1.62;
+}
+.card-foot {
+  font-size: 11px;
+}
+.chip {
+  font-size: 11px;
+  padding: 5px 10px;
+}
+.svc-point {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.quote-text {
+  font-size: 16px;
+  line-height: 1.65;
+}
+.quote-name {
+  font-size: 14px;
+}
+.quote-role {
+  font-size: 12.5px;
+}
+.stat-v {
+  font-size: clamp(21px, 2.2vw, 26px);
+}
+.stat-l {
+  font-size: 13px;
+  line-height: 1.45;
+}
+.ap-n {
+  font-size: 11px;
+}
+.ap-k {
+  font-size: 15px;
+}
+.ap-d {
+  font-size: 13.5px;
+}
+.pain-list li {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.pain-turn {
+  font-size: 15.5px;
+}
+.tool-tag {
+  font-size: 12.5px;
+  padding: 6px 11px;
+}
+.tool-tag em {
+  font-size: 9.5px;
+}
+.step {
+  font-size: 15px;
+}
+.step-n {
+  font-size: 11px;
+}
+.result-box {
+  font-size: 15.5px;
+}
+.foot {
+  font-size: 13px;
+}
+
+/* Accessibility panel */
+.a11y-title,
+.a11y-reset {
+  font-size: 11px;
+}
+.a11y-label {
+  font-size: 13px;
+}
+.a11y-size {
+  font-size: 12.5px;
+}
+.a11y-switch {
+  font-size: 14px;
+}
+.a11y-switch-text small {
+  font-size: 12px;
+}
+
+/* Bigger steps for the in-page text-size control */
+html[data-size="lg"] {
+  --type-scale: 1.12;
+}
+html[data-size="xl"] {
+  --type-scale: 1.26;
 }

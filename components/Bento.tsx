@@ -23,6 +23,9 @@ const SERVICES_MINI = [
   "Executive support",
 ];
 
+/* Each marquee copy repeats the tool list so it outruns any viewport width. */
+const LOOP = Array.from({ length: 4 }).flatMap(() => site.tools);
+
 export default function Bento() {
   return (
     <div className="wrap" id="top">
@@ -61,8 +64,8 @@ export default function Bento() {
         <div className="drivers-track">
           {[0, 1].map((dup) => (
             <div className="drivers-list" key={dup} aria-hidden={dup === 1}>
-              {site.tools.map((d) => (
-                <span className="driver" key={`${dup}-${d.name}`}>
+              {LOOP.map((d, i) => (
+                <span className="driver" key={`${dup}-${i}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={d.logo} alt="" width={16} height={16} aria-hidden="true" />
                   {d.name}

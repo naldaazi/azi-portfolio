@@ -4,9 +4,10 @@ import Reveal from "@/components/Reveal";
 import { PageHead, ContactBody, Footer } from "@/components/Sections";
 
 export const metadata: Metadata = {
-  title: "Contact — Azi Nalda",
+  title: "Contact",
   description:
     "Book a discovery call or send an email. Manila based, working overlap with US hours.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

@@ -4,9 +4,10 @@ import Reveal from "@/components/Reveal";
 import { PageHead, TestimonialsGrid, Footer } from "@/components/Sections";
 
 export const metadata: Metadata = {
-  title: "Testimonials — Azi Nalda",
+  title: "Testimonials",
   description:
     "What the founders and teams I've supported say about working together.",
+  alternates: { canonical: "/testimonials" },
 };
 
 export default function TestimonialsPage() {

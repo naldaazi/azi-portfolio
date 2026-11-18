@@ -9,9 +9,10 @@ import {
 } from "@/components/Sections";
 
 export const metadata: Metadata = {
-  title: "Services — Azi Nalda",
+  title: "Services",
   description:
     "Inbox, calendar, workflow systems, automation and SOPs, executive support and operations audits for founders and small teams.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
