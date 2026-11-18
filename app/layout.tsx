@@ -90,8 +90,6 @@ const bootScript = `try{
   if(s.contrast)d.setAttribute('data-contrast','high');
   if(s.motion)d.setAttribute('data-motion','reduce');
   if(s.links)d.setAttribute('data-links','under');
-  var noMotion=s.motion||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!noMotion)d.classList.add('js-reveal');
   if(!sessionStorage.getItem('intro'))d.setAttribute('data-boot','1');
 }catch(e){}`;
 

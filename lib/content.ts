@@ -68,7 +68,7 @@ export const site = {
     {
       label: "OnlineJobs",
       href: "https://www.onlinejobs.ph/jobseekers/info/4693548",
-      logo: "/logos/onlinejobs.svg",
+      logo: "/logos/oj-logo-square.png",
     },
     { label: "Email", href: "mailto:casimiro.en@gmail.com", logo: "/logos/mail.svg" },
   ],

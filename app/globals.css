@@ -337,6 +337,7 @@ img {
   border-radius: 50%;
   border: 1px solid var(--hair-strong);
   background: #fff;
+  cursor: pointer;
   transition:
     border-color 0.18s var(--ease),
     transform 0.18s var(--ease),
@@ -347,6 +348,10 @@ img {
   width: 17px;
   height: 17px;
   object-fit: contain;
+}
+
+.social-dot svg {
+  color: var(--ink);
 }
 
 .social-dot:hover {
@@ -565,15 +570,15 @@ img {
   mask-image: linear-gradient(
     90deg,
     transparent,
-    #000 24px,
-    #000 calc(100% - 40px),
+    #000 48px,
+    #000 calc(100% - 64px),
     transparent
   );
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent,
-    #000 24px,
-    #000 calc(100% - 40px),
+    #000 48px,
+    #000 calc(100% - 64px),
     transparent
   );
 }
@@ -658,7 +663,7 @@ html[data-motion="reduce"] .drivers-list {
 
 @media (min-width: 1180px) {
   .bento {
-    grid-template-columns: 320px 1.15fr 1fr 1fr;
+    grid-template-columns: 320px 1fr 1fr;
     align-items: stretch;
   }
   .b-portrait {

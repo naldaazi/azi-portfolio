@@ -1,17 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 /**
  * Reveals [data-reveal] sections as they enter the viewport.
- * - No-JS: everything stays visible (the hidden state only applies with .js-reveal).
- * - Reduced motion: skipped entirely.
- * - Safety net: anything still hidden after 3s is revealed anyway.
+ *
+ * The `js-reveal` class is added here (after hydration, before paint) rather
+ * than in the pre-paint script, so React never sees a mismatched <html> class.
+ * No-JS users get the fully visible server-rendered page, which is what we want
+ * for SEO and screen readers.
  */
 export default function Reveal() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
-    if (!root.classList.contains("js-reveal")) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const items = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal]"),
@@ -20,10 +22,12 @@ export default function Reveal() {
 
     const show = (el: Element) => el.classList.add("is-in");
 
-    if (!("IntersectionObserver" in window)) {
+    if (reduce || !("IntersectionObserver" in window)) {
       items.forEach(show);
       return;
     }
+
+    root.classList.add("js-reveal");
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -39,11 +43,12 @@ export default function Reveal() {
 
     items.forEach((el) => {
       const rect = el.getBoundingClientRect();
-      // Anything already on screen at load should not animate in.
+      // Anything already on screen should not animate in.
       if (rect.top < window.innerHeight * 0.92) show(el);
       else observer.observe(el);
     });
 
+    // Safety net: never leave content hidden.
     const safety = window.setTimeout(() => items.forEach(show), 3000);
 
     return () => {
