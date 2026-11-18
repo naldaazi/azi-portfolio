@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { site } from "@/lib/content";
+import { projectShot } from "@/lib/shots";
 import {
   MockSheet,
   MockPlan,
@@ -6,6 +8,30 @@ import {
   MockInbox,
   MockWeek,
 } from "./Mocks";
+
+/** Shows the real screenshot if one exists, otherwise the illustrative mock. */
+function Shot({
+  src,
+  alt,
+  fallback,
+}: {
+  src: string | null;
+  alt: string;
+  fallback: React.ReactNode;
+}) {
+  if (!src) return <>{fallback}</>;
+  return (
+    <div className="pcard-shot">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 1100px) 420px, (min-width: 760px) 45vw, 90vw"
+        style={{ objectFit: "cover", objectPosition: "top left" }}
+      />
+    </div>
+  );
+}
 
 function Arrow({ size = 11 }: { size?: number }) {
   return (
@@ -28,6 +54,13 @@ export default function ProjectGallery() {
   const workflow = bySlug("operational-workflow-system");
   const inbox = bySlug("inbox-management-system");
   const calendar = bySlug("calendar-management-system");
+
+  const shots = {
+    automation: projectShot(automation.slug),
+    workflow: projectShot(workflow.slug),
+    inbox: projectShot(inbox.slug),
+    calendar: projectShot(calendar.slug),
+  };
 
   return (
     <div className="proj-hero">
@@ -79,7 +112,11 @@ export default function ProjectGallery() {
             send themselves the moment a meeting is logged.
           </p>
           <div className="pcard-mock">
-            <MockSheet />
+            <Shot
+              src={shots.automation}
+              alt={`${automation.title} — automation screen`}
+              fallback={<MockSheet />}
+            />
           </div>
           <span className="pcard-more">
             Walk the build
@@ -128,7 +165,11 @@ export default function ProjectGallery() {
           </div>
           <p className="pcard-desc">{workflow.summary}</p>
           <div className="pcard-mock">
-            <MockBoard />
+            <Shot
+              src={shots.workflow}
+              alt={`${workflow.title} — workflow board`}
+              fallback={<MockBoard />}
+            />
           </div>
           <span className="pcard-more">
             Open case study
@@ -152,7 +193,11 @@ export default function ProjectGallery() {
           </div>
           <p className="pcard-desc">{inbox.summary}</p>
           <div className="pcard-mock">
-            <MockInbox />
+            <Shot
+              src={shots.inbox}
+              alt={`${inbox.title} — inbox layout`}
+              fallback={<MockInbox />}
+            />
           </div>
           <span className="pcard-more">
             Open case study
@@ -176,7 +221,11 @@ export default function ProjectGallery() {
           </div>
           <p className="pcard-desc">{calendar.summary}</p>
           <div className="pcard-mock">
-            <MockWeek />
+            <Shot
+              src={shots.calendar}
+              alt={`${calendar.title} — calendar layout`}
+              fallback={<MockWeek />}
+            />
           </div>
           <span className="pcard-more">
             Open case study

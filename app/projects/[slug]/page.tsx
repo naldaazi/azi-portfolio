@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Chrome from "@/components/Chrome";
 import Reveal from "@/components/Reveal";
 import { Footer } from "@/components/Sections";
 import { site } from "@/lib/content";
+import { projectShot } from "@/lib/shots";
 
 export function generateStaticParams() {
   return site.projects.map((p) => ({ slug: p.slug }));
@@ -86,6 +88,23 @@ export default async function ProjectPage({
                 </span>
               ))}
             </div>
+
+            {(() => {
+              const shot = projectShot(project.slug);
+              if (!shot) return null;
+              return (
+                <div className="detail-shot">
+                  <Image
+                    src={shot}
+                    alt={`${project.title} — screen`}
+                    fill
+                    priority
+                    sizes="(min-width: 900px) 900px, 92vw"
+                    style={{ objectFit: "cover", objectPosition: "top left" }}
+                  />
+                </div>
+              );
+            })()}
           </div>
 
           <div className="detail-body" style={{ padding: "26px 0 0", marginTop: 24 }}>
