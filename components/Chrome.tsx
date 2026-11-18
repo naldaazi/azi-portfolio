@@ -301,28 +301,26 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="sb-foot">
-            <div className="sb-tools">
-              <button
-                className="sb-tool"
-                onClick={() => setA11y(true)}
-                aria-label="Accessibility settings"
-                title="Accessibility settings"
-              >
-                <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="4.6" r="1.9" fill="currentColor" />
-                  <path
-                    d="M4 7.6h12M10 7.6v5M10 12.6l-3 4M10 12.6l3 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
-            </div>
+            <button
+              className="sb-a11y"
+              onClick={() => setA11y(true)}
+              aria-label="Accessibility settings"
+              title="Accessibility settings"
+            >
+              <svg width="21" height="21" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="4.1" r="1.9" fill="currentColor" />
+                <path
+                  d="M4.3 7.6h11.4M10 7.6v4.9M10 12.5l-2.7 4.4M10 12.5l2.7 4.4"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
             <span>
-              © {new Date().getFullYear()} {site.name}.
+              © {new Date().getFullYear()}
               <br />
-              All rights reserved.
+              {site.name}. All rights reserved.
             </span>
           </div>
         </aside>

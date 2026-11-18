@@ -409,9 +409,34 @@ img {
   margin-top: auto;
   padding-top: 20px;
   border-top: 1px solid var(--hair);
-  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12.5px;
   line-height: 1.5;
   color: var(--faint);
+}
+
+.sb-a11y {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 50%;
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+  transition:
+    transform 0.18s var(--ease),
+    background 0.18s var(--ease);
+}
+
+.sb-a11y:hover {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
 }
 
 .sb-tools {
