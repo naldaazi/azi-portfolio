@@ -35,3 +35,31 @@ export function projectShots(slug: string): string[] {
 export function projectShot(slug: string): string | null {
   return projectShots(slug)[0] ?? null;
 }
+
+/** Before/after pair: `<slug>-before.jpg` and `<slug>-after.jpg`. */
+export function projectPair(slug: string): {
+  before: string | null;
+  after: string | null;
+} {
+  const dir = path.join(process.cwd(), "public", "projects");
+
+  let files: string[];
+  try {
+    files = fs.readdirSync(dir);
+  } catch {
+    return { before: null, after: null };
+  }
+
+  const find = (suffix: string) => {
+    for (const file of files) {
+      const m = file.match(/^(.*?)-([a-z]+)\.(webp|jpe?g|png)$/i);
+      if (!m) continue;
+      if (m[1].toLowerCase() !== slug.toLowerCase()) continue;
+      if (m[2].toLowerCase() !== suffix) continue;
+      return `/projects/${file}`;
+    }
+    return null;
+  };
+
+  return { before: find("before"), after: find("after") };
+}

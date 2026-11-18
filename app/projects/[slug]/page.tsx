@@ -7,7 +7,7 @@ import { Footer } from "@/components/Sections";
 import WorkflowDiagram from "@/components/WorkflowDiagram";
 import BoardMock from "@/components/BoardMock";
 import { site } from "@/lib/content";
-import { projectShots } from "@/lib/shots";
+import { projectShots, projectPair } from "@/lib/shots";
 
 export function generateStaticParams() {
   return site.projects.map((p) => ({ slug: p.slug }));
@@ -49,6 +49,7 @@ export default async function ProjectPage({
   const allShots = projectShots(project.slug);
   const heroShot = allShots.find((s) => !/-\d+\.[a-z]+$/i.test(s)) ?? null;
   const proof = allShots.filter((s) => s !== heroShot);
+  const pair = projectPair(project.slug);
 
   return (
     <>
@@ -140,6 +141,41 @@ export default async function ProjectPage({
                 <div style={{ marginTop: 34 }}>
                   <span className="label">The board</span>
                   <BoardMock />
+                </div>
+              )}
+
+              {(pair.before || pair.after) && (
+                <div style={{ marginTop: 34 }}>
+                  <span className="label">Before &amp; after</span>
+                  <div className="pair">
+                    {(
+                      [
+                        ["before", pair.before, "Before"],
+                        ["after", pair.after, "After"],
+                      ] as const
+                    ).map(([key, src, text]) =>
+                      src ? (
+                        <a
+                          key={key}
+                          className="pair-item"
+                          href={src}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span className={`pair-head pair-head--${key}`}>{text}</span>
+                          <span className="pair-img">
+                            <Image
+                              src={src}
+                              alt={`${project.title} — ${text.toLowerCase()}`}
+                              fill
+                              sizes="(min-width: 760px) 45vw, 92vw"
+                              style={{ objectFit: "cover", objectPosition: "top left" }}
+                            />
+                          </span>
+                        </a>
+                      ) : null,
+                    )}
+                  </div>
                 </div>
               )}
 

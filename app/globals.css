@@ -2045,8 +2045,74 @@ a.pcard:hover {
   border-color: var(--hair-strong);
 }
 
-/* ── ClickUp-style board mock ────────────────────────────── */
+/* ── Before / after ──────────────────────────────────────── */
 
+.pair {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 760px) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pair-item {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+  background: var(--card-2);
+  transition:
+    transform 0.22s var(--ease),
+    box-shadow 0.22s var(--ease),
+    border-color 0.22s var(--ease);
+}
+
+.pair-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--hair-strong);
+}
+
+.pair-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--hair);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pair-head::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.pair-head--before {
+  color: #c0564f;
+}
+
+.pair-head--after {
+  color: #2e9e6b;
+}
+
+.pair-img {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+}
+
+/* ── ClickUp-style board mock ────────────────────────────── */
 .board-wrap {
   margin-top: 12px;
   min-width: 0;
