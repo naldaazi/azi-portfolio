@@ -5,6 +5,7 @@ import Chrome from "@/components/Chrome";
 import Reveal from "@/components/Reveal";
 import { Footer } from "@/components/Sections";
 import WorkflowDiagram from "@/components/WorkflowDiagram";
+import BoardMock from "@/components/BoardMock";
 import { site } from "@/lib/content";
 import { projectShots } from "@/lib/shots";
 
@@ -132,6 +133,13 @@ export default async function ProjectPage({
                 <div style={{ marginTop: 34 }}>
                   <span className="label">The workflow, running</span>
                   <WorkflowDiagram />
+                </div>
+              )}
+
+              {project.slug === "operational-workflow-system" && (
+                <div style={{ marginTop: 34 }}>
+                  <span className="label">The board</span>
+                  <BoardMock />
                 </div>
               )}
 

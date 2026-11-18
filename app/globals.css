@@ -1995,7 +1995,6 @@ a.pcard:hover {
 }
 
 /* ── Proof strip ─────────────────────────────────────────── */
-
 .proof-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -2044,6 +2043,147 @@ a.pcard:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lift);
   border-color: var(--hair-strong);
+}
+
+/* ── ClickUp-style board mock ────────────────────────────── */
+
+.board-wrap {
+  margin-top: 12px;
+}
+
+.board {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(148px, 1fr);
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 6px;
+}
+
+.board-col {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  background: var(--card-2);
+}
+
+.board-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.board-name {
+  font-weight: 600;
+}
+
+.board-col--todo .board-name {
+  color: #7c5cd6;
+}
+.board-col--doing .board-name {
+  color: #2c84dd;
+}
+.board-col--review .board-name {
+  color: #b47c26;
+}
+.board-col--done .board-name {
+  color: #2e9e6b;
+}
+.board-col--archive .board-name {
+  color: var(--faint);
+}
+
+.board-count {
+  margin-left: auto;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--hair);
+  color: var(--faint);
+}
+
+.board-card {
+  display: grid;
+  gap: 6px;
+  padding: 7px 8px;
+  border: 1px solid var(--hair);
+  border-radius: 8px;
+  background: var(--card);
+}
+
+.board-title {
+  font-size: 10.5px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.board-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.board-av {
+  display: grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+  font-size: 6.5px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.board-date {
+  font-size: 8.5px;
+  color: var(--faint);
+}
+
+.board-flag {
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 8px;
+  background: var(--hair);
+  color: var(--faint);
+}
+
+.board-flag--high {
+  background: rgba(192, 86, 79, 0.12);
+  color: #c0564f;
+}
+.board-flag--med {
+  background: rgba(201, 138, 46, 0.14);
+  color: #b47c26;
+}
+
+.board-tag {
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 8px;
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+}
+
+.board-add {
+  padding-top: 2px;
+  font-size: 8.5px;
+  color: var(--faint);
+}
+
+.board-note {
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: var(--faint);
 }
 
 .wf-live {
