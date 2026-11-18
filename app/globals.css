@@ -833,9 +833,9 @@ a.bcard:hover {
 
 .bp-frame {
   position: relative;
-  width: 82%;
+  width: 62%;
   aspect-ratio: 1;
-  margin: 14px 0 16px;
+  margin: 10px 0 14px;
   border-radius: 16px;
   overflow: hidden;
   border: 3px solid var(--accent-soft);
@@ -934,9 +934,9 @@ a.bcard:hover {
 .orbit {
   position: relative;
   width: 100%;
-  max-width: 250px;
+  max-width: 190px;
   aspect-ratio: 1;
-  margin: 6px auto 4px;
+  margin: 4px auto 2px;
   display: grid;
   place-items: center;
 }
@@ -969,9 +969,9 @@ a.bcard:hover {
   position: absolute;
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
   background: var(--card);
   border: 1px solid var(--hair);
   box-shadow: 0 4px 14px -8px rgba(11, 30, 63, 0.45);
@@ -979,8 +979,8 @@ a.bcard:hover {
 }
 
 .orbit-node img {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   object-fit: contain;
 }
 

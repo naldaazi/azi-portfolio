@@ -21,6 +21,7 @@ const SERVICES_MINI = [
   "Workflow systems",
   "Automation & SOPs",
   "Executive support",
+  "Operations audit",
 ];
 
 /* Each marquee copy repeats the tool list so it outruns any viewport width. */
