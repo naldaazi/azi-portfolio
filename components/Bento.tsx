@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Image from "next/image";
 import { site } from "@/lib/content";
+import { projectShot } from "@/lib/shots";
 
 function Arrow({ size = 11 }: { size?: number }) {
   return (
@@ -162,6 +164,24 @@ export default function Bento() {
                 <Arrow size={10} />
               </div>
             ))}
+          </div>
+
+          <div className="b-thumbs">
+            {["inbox-management-system", "calendar-management-system"].map((slug) => {
+              const src = projectShot(slug);
+              if (!src) return null;
+              return (
+                <span className="b-thumb" key={slug}>
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1180px) 180px, 40vw"
+                    style={{ objectFit: "cover", objectPosition: "top left" }}
+                  />
+                </span>
+              );
+            })}
           </div>
 
           <span className="bcard-more">

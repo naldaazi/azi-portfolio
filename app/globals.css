@@ -1046,6 +1046,23 @@ a.bcard:hover {
   min-height: 62px;
 }
 
+.b-thumbs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.b-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  background: var(--card-2);
+}
+
 /* ── Service / tool lists inside cards ───────────────────── */
 
 .mini-list {
