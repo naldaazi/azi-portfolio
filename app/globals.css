@@ -3399,6 +3399,8 @@ a.pcard:hover .pcard-shot img,
 .bcard-title {
   transition: color 0.18s var(--ease);
 }
+/* ═══════════════════════════════════════════════════════════
+   READABILITY SCALE — optimised for low-vision / older readers
    Body text ≥16px, nothing below 11px, line-height ≥1.6.
    Overrides the component sizes above; tune everything here.
    ═══════════════════════════════════════════════════════════ */
