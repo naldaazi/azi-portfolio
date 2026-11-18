@@ -1,24 +1,11 @@
 import type { ReactNode } from "react";
+import { SlidersHorizontal, Funnel, Clock } from "@phosphor-icons/react/dist/ssr";
 
 /* Step glyphs that don't have a brand logo */
 const G = {
-  sliders: (
-    <>
-      <path d="M4 7h9M17 7h3M4 12h4M12 12h8M4 17h11M19 17h1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-      <circle cx="15" cy="7" r="2" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="10" cy="12" r="2" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="17" cy="17" r="2" stroke="currentColor" strokeWidth="1.7" />
-    </>
-  ),
-  funnel: (
-    <path d="M3.5 5h17l-6.4 7.4V19l-4.2-2.1v-4.5L3.5 5z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-  ),
-  clock: (
-    <>
-      <circle cx="12" cy="12" r="8.2" stroke="currentColor" strokeWidth="1.7" />
-      <path d="M12 7.4V12l3 1.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-    </>
-  ),
+  sliders: <SlidersHorizontal size={20} weight="bold" />,
+  funnel: <Funnel size={20} weight="bold" />,
+  clock: <Clock size={20} weight="bold" />,
 };
 
 type Step = {
@@ -113,9 +100,7 @@ export default function WorkflowDiagram() {
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={s.logo} alt="" width={20} height={20} />
                   ) : (
-                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none">
-                      {s.glyph}
-                    </svg>
+                    s.glyph
                   )}
                 </span>
                 <span className="wf-label">

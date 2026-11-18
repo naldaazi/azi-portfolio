@@ -1,17 +1,8 @@
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/lib/content";
 
 export function Arrow({ size = 11 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path
-        d="M3 1h8v8M11 1L1 11"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <ArrowUpRight size={size} weight="bold" aria-hidden="true" />;
 }
 
 /* ── Page header ──────────────────────────────────────────── */

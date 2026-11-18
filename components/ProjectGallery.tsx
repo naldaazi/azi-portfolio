@@ -1,4 +1,12 @@
-import Image from "next/image";
+﻿import Image from "next/image";
+import {
+  ArrowUpRight,
+  TrendUp,
+  SquaresFour,
+  Kanban,
+  Tray,
+  CalendarBlank,
+} from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/lib/content";
 import { projectShot } from "@/lib/shots";
 import {
@@ -34,17 +42,7 @@ function Shot({
 }
 
 function Arrow({ size = 11 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path
-        d="M3 1h8v8M11 1L1 11"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <ArrowUpRight size={size} weight="bold" aria-hidden="true" />;
 }
 
 const bySlug = (slug: string) => site.projects.find((p) => p.slug === slug)!;
@@ -85,36 +83,21 @@ export default function ProjectGallery() {
         >
           <div className="pcard-top">
             <span className="pcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M2 11.5l3.6-3.6 2.4 2.4L14 4.3"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M10 4.3h4v4"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <TrendUp size={15} weight="bold" />
             </span>
             <span>
-              <span className="pcard-eyebrow">01 · {automation.kind}</span>
+              <span className="pcard-eyebrow">01 Â· {automation.kind}</span>
               <h2 className="pcard-title">Automations</h2>
             </span>
           </div>
           <p className="pcard-desc">
-            Real screens from the workflows I build — here, confirmations that
+            Real screens from the workflows I build â€” here, confirmations that
             send themselves the moment a meeting is logged.
           </p>
           <div className="pcard-mock">
             <Shot
               src={shots.automation}
-              alt={`${automation.title} — automation screen`}
+              alt={`${automation.title} â€” automation screen`}
               fallback={<MockSheet />}
             />
           </div>
@@ -128,11 +111,7 @@ export default function ProjectGallery() {
         <div className="pcard" data-reveal>
           <div className="pcard-top">
             <span className="pcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="2" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.5" />
-                <rect x="9" y="9" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M7 4.5h2.5a2 2 0 012 2V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+              <SquaresFour size={15} weight="bold" />
             </span>
             <span>
               <span className="pcard-eyebrow">The build plan</span>
@@ -140,7 +119,7 @@ export default function ProjectGallery() {
             </span>
           </div>
           <p className="pcard-desc">
-            Every automation starts as a written plan — triggers, waits and the
+            Every automation starts as a written plan â€” triggers, waits and the
             one step people forget.
           </p>
           <div className="pcard-mock">
@@ -152,14 +131,10 @@ export default function ProjectGallery() {
         <a className="pcard" href={`/projects/${workflow.slug}`} data-reveal>
           <div className="pcard-top">
             <span className="pcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="3" width="3.6" height="10" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
-                <rect x="6.2" y="3" width="3.6" height="7" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
-                <rect x="10.4" y="3" width="3.6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
-              </svg>
+              <Kanban size={15} weight="bold" />
             </span>
             <span>
-              <span className="pcard-eyebrow">02 · {workflow.kind}</span>
+              <span className="pcard-eyebrow">02 Â· {workflow.kind}</span>
               <h2 className="pcard-title">Workflow systems</h2>
             </span>
           </div>
@@ -167,7 +142,7 @@ export default function ProjectGallery() {
           <div className="pcard-mock">
             <Shot
               src={shots.workflow}
-              alt={`${workflow.title} — workflow board`}
+              alt={`${workflow.title} â€” workflow board`}
               fallback={<MockBoard />}
             />
           </div>
@@ -181,13 +156,10 @@ export default function ProjectGallery() {
         <a className="pcard" href={`/projects/${inbox.slug}`} data-reveal>
           <div className="pcard-top">
             <span className="pcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path d="M1.6 9.2L4 4.2h8l2.4 5v3.2H1.6V9.2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                <path d="M1.6 9.2h3.2l.9 1.6h4.6l.9-1.6h3.2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-              </svg>
+              <Tray size={15} weight="bold" />
             </span>
             <span>
-              <span className="pcard-eyebrow">03 · {inbox.kind}</span>
+              <span className="pcard-eyebrow">03 Â· {inbox.kind}</span>
               <h2 className="pcard-title">Inbox systems</h2>
             </span>
           </div>
@@ -195,7 +167,7 @@ export default function ProjectGallery() {
           <div className="pcard-mock">
             <Shot
               src={shots.inbox}
-              alt={`${inbox.title} — inbox layout`}
+              alt={`${inbox.title} â€” inbox layout`}
               fallback={<MockInbox />}
             />
           </div>
@@ -209,13 +181,10 @@ export default function ProjectGallery() {
         <a className="pcard" href={`/projects/${calendar.slug}`} data-reveal>
           <div className="pcard-top">
             <span className="pcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="3.4" width="12" height="10.6" rx="1.8" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M2 6.6h12M5.4 1.8v3M10.6 1.8v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+              <CalendarBlank size={15} weight="bold" />
             </span>
             <span>
-              <span className="pcard-eyebrow">04 · {calendar.kind}</span>
+              <span className="pcard-eyebrow">04 Â· {calendar.kind}</span>
               <h2 className="pcard-title">Calendar systems</h2>
             </span>
           </div>
@@ -223,7 +192,7 @@ export default function ProjectGallery() {
           <div className="pcard-mock">
             <Shot
               src={shots.calendar}
-              alt={`${calendar.title} — calendar layout`}
+              alt={`${calendar.title} â€” calendar layout`}
               fallback={<MockWeek />}
             />
           </div>

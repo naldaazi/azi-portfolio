@@ -1,19 +1,19 @@
 import Image from "next/image";
+import {
+  ArrowUpRight,
+  Browser,
+  Crosshair,
+  ListDashes,
+  Quotes,
+  Play,
+  Check,
+  Rocket,
+} from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/lib/content";
 import { projectShot } from "@/lib/shots";
 
 function Arrow({ size = 11 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path
-        d="M3 1h8v8M11 1L1 11"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <ArrowUpRight size={size} weight="bold" aria-hidden="true" />;
 }
 
 const SERVICES_MINI = [
@@ -83,9 +83,7 @@ export default function Bento() {
         {/* Portrait */}
         <div className="bcard b-portrait" data-reveal>
           <span className="bp-video" aria-hidden="true">
-            <svg width="8" height="9" viewBox="0 0 8 9" fill="currentColor">
-              <path d="M0 0l8 4.5L0 9z" />
-            </svg>
+            <Play size={9} weight="fill" />
             0:59
           </span>
 
@@ -99,15 +97,7 @@ export default function Bento() {
               style={{ objectFit: "cover", objectPosition: "center 20%" }}
             />
             <span className="bp-tick" aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M2 6.4l2.6 2.6L10 3.4"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <Check size={13} weight="bold" />
             </span>
           </div>
 
@@ -131,10 +121,7 @@ export default function Bento() {
         <a className="bcard b-projects" href="/projects" data-reveal>
           <div className="bcard-head">
             <span className="bcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <rect x="1.5" y="3" width="13" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M1.5 6.5h13" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+              <Browser size={15} weight="bold" />
             </span>
             <span className="bcard-title">Projects</span>
           </div>
@@ -193,10 +180,7 @@ export default function Bento() {
         <a className="bcard b-focus" href="/about" data-reveal>
           <div className="b-focus-top">
             <span className="bcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="8" r="6.2" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="8" cy="8" r="2.2" fill="currentColor" />
-              </svg>
+              <Crosshair size={15} weight="bold" />
             </span>
             <span className="bcard-title">Focus</span>
             <Arrow size={11} />
@@ -205,15 +189,7 @@ export default function Bento() {
           <div className="orbit">
             <span className="orbit-ring" aria-hidden="true" />
             <span className="orbit-core" aria-hidden="true">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2.6c3.4 1.7 5.2 4.9 5.2 8.6 0 2-.4 3.7-1 5.1l-2.6-1.4V19l-1.6 1.6L10.4 19v-4.1l-2.6 1.4c-.6-1.4-1-3.1-1-5.1 0-3.7 1.8-6.9 5.2-8.6z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-                <circle cx="12" cy="9" r="1.6" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+              <Rocket size={30} weight="duotone" />
             </span>
 
             {site.tools.slice(0, 6).map((t, i) => {
@@ -250,9 +226,7 @@ export default function Bento() {
         <a className="bcard" href="/services" data-reveal>
           <div className="bcard-head">
             <span className="bcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+              <ListDashes size={15} weight="bold" />
             </span>
             <span className="bcard-title">Services</span>
           </div>
@@ -277,12 +251,7 @@ export default function Bento() {
         <a className="bcard" href="/testimonials" data-reveal>
           <div className="bcard-head">
             <span className="bcard-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M6 3.5C3.8 4.6 2.5 6.5 2.5 9v3.5h4V9H4.4c0-1.7.6-3 1.9-3.7L6 3.5zm7 0C10.8 4.6 9.5 6.5 9.5 9v3.5h4V9h-2.1c0-1.7.6-3 1.9-3.7L13 3.5z"
-                  fill="currentColor"
-                />
-              </svg>
+              <Quotes size={15} weight="fill" />
             </span>
             <span className="bcard-title">Testimonials</span>
           </div>

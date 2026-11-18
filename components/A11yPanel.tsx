@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "@phosphor-icons/react";
 export type A11ySettings = {
   size: "sm" | "lg" | "xl";
   contrast: boolean;
@@ -56,14 +57,7 @@ export default function A11yPanel({ open, settings, update, reset, onClose }: Pr
         <div className="a11y-head">
           <span className="a11y-title">Accessibility</span>
           <button className="icon-btn" onClick={onClose} aria-label="Close settings">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path
-                d="M1 1l12 12M13 1L1 13"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <X size={14} weight="bold" />
           </button>
         </div>
 
