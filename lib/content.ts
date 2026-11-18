@@ -32,7 +32,7 @@ export const site = {
 
   // ── SEO ──────────────────────────────────────────────────
   // TODO: change to your real domain after you connect one on Vercel.
-  url: "https://azi-portfolio-azi-nalda.vercel.app",
+  url: "https://azi-portfolio.vercel.app",
   metaDescription:
     "Azi Nalda is an Executive Assistant and Operations Specialist in Manila. Inbox, calendar, workflow systems, automation and SOPs for founders and small teams.",
   keywords: [
