@@ -2063,6 +2063,56 @@ a.pcard:hover {
   color: var(--faint);
 }
 
+/* Page enter + gentle life in the previews (matches the reference's page-fadein) */
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stage > .wrap {
+  animation: pageIn 0.45s var(--ease) both;
+}
+
+@keyframes floaty {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-7px);
+  }
+}
+
+.pcard-mock .mock,
+.pcard-shot {
+  animation: floaty 15s ease-in-out infinite alternate;
+}
+
+.pcard-mock .pair,
+.pcard-mock .mock-cols {
+  animation: none;
+}
+
+html[data-motion="reduce"] .stage > .wrap,
+html[data-motion="reduce"] .pcard-mock .mock,
+html[data-motion="reduce"] .pcard-shot {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage > .wrap,
+  .pcard-mock .mock,
+  .pcard-shot {
+    animation: none;
+  }
+}
+
 /* ── Proof strip ─────────────────────────────────────────── */
 .proof-grid {
   display: grid;
@@ -3273,7 +3323,82 @@ html[data-motion="reduce"] .stage {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   READABILITY SCALE — optimised for low-vision / older readers
+   HOVER LANGUAGE — lifted from the reference site
+   lift · arrow nudge · colour shift · image swell
+   ═══════════════════════════════════════════════════════════ */
+
+/* Arrow nudge */
+.card-foot .go svg,
+.bcard-more svg,
+.pcard-more svg,
+.prow > svg,
+.tool-tag svg {
+  transition: transform 0.2s var(--ease);
+}
+
+.card:hover .card-foot .go svg,
+.bcard:hover .bcard-more svg,
+.pcard:hover .pcard-more svg,
+.prow:hover > svg {
+  transform: translate(2px, -2px);
+}
+
+/* Deeper lift on the big cards */
+.pcard {
+  transition:
+    transform 0.24s var(--ease),
+    box-shadow 0.24s var(--ease),
+    border-color 0.24s var(--ease);
+}
+
+a.pcard:hover {
+  transform: translateY(-5px);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.bcard:hover,
+a.bcard:hover {
+  transform: translateY(-4px);
+}
+
+/* Image swell inside previews */
+.pcard-shot img,
+.proof-item img {
+  transition: transform 0.45s var(--ease);
+}
+
+a.pcard:hover .pcard-shot img,
+.proof-item:hover img {
+  transform: scale(1.04);
+}
+
+/* Colour shift on nav + text links */
+.sb-link:hover {
+  color: var(--accent-ink);
+}
+
+.prow:hover .prow-t {
+  color: var(--accent-ink);
+}
+
+.prow-t {
+  transition: color 0.16s var(--ease);
+}
+
+.card:hover .card-title,
+.pcard:hover .pcard-title,
+.bcard:hover .bcard-title {
+  color: var(--accent-ink);
+}
+
+.card-title,
+.pcard-title,
+.bcard-title {
+  transition: color 0.18s var(--ease);
+}
    Body text ≥16px, nothing below 11px, line-height ≥1.6.
    Overrides the component sizes above; tune everything here.
    ═══════════════════════════════════════════════════════════ */
