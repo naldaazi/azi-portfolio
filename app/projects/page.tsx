@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Chrome from "@/components/Chrome";
 import Reveal from "@/components/Reveal";
-import { PageHead, ProjectsGrid, Footer } from "@/components/Sections";
+import { PageHead, Footer } from "@/components/Sections";
+import ProjectGallery from "@/components/ProjectGallery";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -17,11 +18,11 @@ export default function ProjectsPage() {
       <Chrome>
         <div className="wrap">
           <PageHead
-            eyebrow="01 · Projects"
-            title="Work that shipped."
-            lede="Four builds, written up honestly — the problem, what I actually did, and what changed. Open a card to walk the whole thing."
+            eyebrow="Projects"
+            title="Systems you can open and walk through."
+            lede="Everything here shipped. Open a card to walk through the work at full size."
           />
-          <ProjectsGrid />
+          <ProjectGallery />
           <Footer />
         </div>
       </Chrome>
