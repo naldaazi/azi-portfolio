@@ -142,15 +142,20 @@ export default function Bento() {
           </p>
 
           <div className="mini-list">
-            {site.projects.slice(0, 4).map((p) => (
-              <div className="prow" key={p.slug}>
-                <span className="prow-n">{p.index}</span>
+            {[
+              { n: "01", t: "Automations", s: "Meeting confirmations" },
+              { n: "02", t: "Workflow systems", s: "ClickUp, one source of truth" },
+              { n: "03", t: "Inbox systems", s: "Gmail triage & labels" },
+              { n: "04", t: "Calendar systems", s: "Focus blocks & buffers" },
+            ].map((row) => (
+              <div className="prow" key={row.n}>
+                <span className="prow-n">{row.n}</span>
                 <span>
                   <span className="prow-t" style={{ display: "block" }}>
-                    {p.title}
+                    {row.t}
                   </span>
                   <span className="prow-s" style={{ display: "block" }}>
-                    {p.client}
+                    {row.s}
                   </span>
                 </span>
                 <Arrow size={10} />
@@ -162,6 +167,63 @@ export default function Bento() {
             Read the case studies
             <Arrow size={10} />
           </span>
+        </a>
+
+        {/* Focus */}
+        <a className="bcard b-focus" href="/about" data-reveal>
+          <div className="b-focus-top">
+            <span className="bcard-icon" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="6.2" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="8" cy="8" r="2.2" fill="currentColor" />
+              </svg>
+            </span>
+            <span className="bcard-title">Focus</span>
+            <Arrow size={11} />
+          </div>
+
+          <div className="orbit">
+            <span className="orbit-ring" aria-hidden="true" />
+            <span className="orbit-core" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2.6c3.4 1.7 5.2 4.9 5.2 8.6 0 2-.4 3.7-1 5.1l-2.6-1.4V19l-1.6 1.6L10.4 19v-4.1l-2.6 1.4c-.6-1.4-1-3.1-1-5.1 0-3.7 1.8-6.9 5.2-8.6z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <circle cx="12" cy="9" r="1.6" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            </span>
+
+            {site.tools.slice(0, 6).map((t, i) => {
+              const spots = [
+                { left: "14%", top: "12%" },
+                { left: "72%", top: "6%" },
+                { left: "84%", top: "44%" },
+                { left: "62%", top: "82%" },
+                { left: "16%", top: "80%" },
+                { left: "2%", top: "46%" },
+              ];
+              const s = spots[i];
+              return (
+                <span
+                  className="orbit-node"
+                  key={t.name}
+                  style={{ left: s.left, top: s.top }}
+                  title={t.name}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={t.logo} alt="" width={16} height={16} aria-hidden="true" />
+                </span>
+              );
+            })}
+          </div>
+
+          <p className="bcard-desc" style={{ marginTop: 0 }}>
+            Executive support and operations systems.
+          </p>
+          <span className="pill-badge">Operations &amp; systems</span>
         </a>
 
         {/* Services */}
