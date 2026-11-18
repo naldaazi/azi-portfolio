@@ -41,3 +41,6 @@ next-env.d.ts
 
 # opencode
 .opencode
+
+# scratch previews
+preview-*.html
