@@ -2049,6 +2049,7 @@ a.pcard:hover {
 
 .board-wrap {
   margin-top: 12px;
+  min-width: 0;
 }
 
 .board {
@@ -2058,6 +2059,7 @@ a.pcard:hover {
   gap: 8px;
   overflow-x: auto;
   padding: 2px 0 6px;
+  max-width: 100%;
 }
 
 .board-col {
@@ -2642,6 +2644,10 @@ html[data-motion="reduce"] .bg-anim {
     grid-template-columns: 1.35fr 0.65fr;
     align-items: start;
   }
+}
+
+.detail-body > div {
+  min-width: 0;
 }
 
 .detail-aside {
