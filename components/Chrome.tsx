@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { site } from "@/lib/content";
 import BootIntro from "./BootIntro";
+import ScrollProgress from "./ScrollProgress";
 import A11yPanel, { DEFAULT_A11Y, type A11ySettings } from "./A11yPanel";
 
 /** Monochrome social glyphs — single colour, drawn on one grid so they match. */
@@ -327,6 +328,7 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
         </aside>
 
         <main className="stage" id="main">
+          <ScrollProgress />
           {children}
         </main>
       </div>

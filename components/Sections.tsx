@@ -26,7 +26,7 @@ export function PageHead({
   lede: string;
 }) {
   return (
-    <header className="page-head">
+    <header className="page-head" data-reveal>
       <span className="eyebrow">{eyebrow}</span>
       <h1 className="h2" style={{ marginTop: 10 }}>
         {title}
@@ -44,7 +44,7 @@ export function ProjectsGrid() {
   return (
     <div className="grid-2" style={{ marginTop: 24 }}>
       {site.projects.map((p) => (
-        <a key={p.slug} href={`/projects/${p.slug}`} className="card">
+        <a key={p.slug} href={`/projects/${p.slug}`} className="card" data-reveal>
           <div className="card-top">
             <span className={`chip${p.kind === "Client work" ? " chip-accent" : ""}`}>
               {p.kind}
@@ -70,7 +70,7 @@ export function ProjectsGrid() {
 
 export function PainBlock() {
   return (
-    <div className="pain">
+    <div className="pain" data-reveal>
       <span className="label">{site.pain.title}</span>
       <ul className="pain-list">
         {site.pain.points.map((p) => (
@@ -86,7 +86,7 @@ export function ServicesGrid() {
   return (
     <div className="grid-3" style={{ marginTop: 24 }}>
       {site.services.map((s, i) => (
-        <div className="card" key={s.title} style={{ cursor: "default" }}>
+        <div className="card" key={s.title} style={{ cursor: "default" }} data-reveal>
           <div className="card-top">
             <span className="label">{String(i + 1).padStart(2, "0")}</span>
           </div>
@@ -111,7 +111,7 @@ export function TestimonialsGrid() {
   return (
     <div className="grid-2" style={{ marginTop: 24 }}>
       {site.testimonials.map((t) => (
-        <figure className="quote" key={t.name}>
+        <figure className="quote" key={t.name} data-reveal>
           <span className="quote-mark" aria-hidden="true">
             “
           </span>

@@ -56,7 +56,7 @@ export default async function ProjectPage({
       <Reveal />
       <Chrome>
         <div className="wrap">
-          <div className="detail-hero" style={{ padding: 0 }}>
+          <div className="detail-hero" style={{ padding: 0 }} data-reveal>
             <a
               href="/projects"
               className="label"
@@ -131,21 +131,21 @@ export default async function ProjectPage({
               </div>
 
               {project.slug === "meeting-confirmation-automation" && (
-                <div style={{ marginTop: 34 }}>
+                <div style={{ marginTop: 34 }} data-reveal>
                   <span className="label">The workflow, running</span>
                   <WorkflowDiagram />
                 </div>
               )}
 
               {project.slug === "operational-workflow-system" && (
-                <div style={{ marginTop: 34 }}>
+                <div style={{ marginTop: 34 }} data-reveal>
                   <span className="label">The board</span>
                   <BoardMock />
                 </div>
               )}
 
               {(pair.before || pair.after) && (
-                <div style={{ marginTop: 34 }}>
+                <div style={{ marginTop: 34 }} data-reveal>
                   <span className="label">Before &amp; after</span>
                   <div className="pair">
                     {(
@@ -180,7 +180,7 @@ export default async function ProjectPage({
               )}
 
               {proof.length > 0 && (
-                <div style={{ marginTop: 30 }}>
+                <div style={{ marginTop: 30 }} data-reveal>
                   <span className="label">Proof · the actual Zap</span>
                   <div className="proof-grid">
                     {proof.map((src, i) => (
@@ -205,7 +205,7 @@ export default async function ProjectPage({
                 </div>
               )}
 
-              <div className="result-box">
+              <div className="result-box" data-reveal>
                 <span className="label" style={{ color: "var(--accent-ink)" }}>
                   Result
                 </span>
