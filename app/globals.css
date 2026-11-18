@@ -633,6 +633,10 @@ html[data-motion="reduce"] .drivers-list {
   height: 17px;
   flex: none;
   object-fit: contain;
+  background: #fff;
+  border-radius: 5px;
+  padding: 2px;
+  box-sizing: content-box;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -931,6 +935,10 @@ a.bcard:hover {
   height: 19px;
   flex: none;
   object-fit: contain;
+  background: #fff;
+  border-radius: 5px;
+  padding: 2px;
+  box-sizing: content-box;
 }
 
 .page-head {
