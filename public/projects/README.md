@@ -1,32 +1,52 @@
 # Project screenshots
 
-Drop a screenshot in this folder and it appears automatically in the project
-card on `/projects` and at the top of the case-study page. If a file is
-missing, the card shows its built-in illustrative mock instead — nothing breaks.
+Drop screenshots in this folder and they appear automatically. If a file is
+missing, the page falls back to its built-in illustration — nothing breaks.
 
-## File names (the slug must match exactly)
+## The two kinds
 
-| File | Project |
+| File name | Where it shows |
 | --- | --- |
-| `meeting-confirmation-automation.jpg` | Meeting Confirmation Automation |
-| `operational-workflow-system.jpg` | Operational Workflow System |
-| `inbox-management-system.jpg` | Inbox Management System |
-| `calendar-management-system.jpg` | Calendar Management System |
+| `meeting-confirmation-automation.jpg` | Wide banner at the top of the case study (16:9) |
+| `meeting-confirmation-automation-1.jpg` | Proof strip, thumbnail 1 |
+| `meeting-confirmation-automation-2.jpg` | Proof strip, thumbnail 2 |
+| `meeting-confirmation-automation-3.jpg` | Proof strip, thumbnail 3 |
 
-`.png` and `.webp` work too — the lookup checks `webp`, `jpg`, `jpeg`, `png`.
+Numbered files go into a 3-across **"Proof"** strip under the write-up and open
+full size when clicked. Use `-1`, `-2`, `-3` … — they sort by number.
 
-## What makes a good one
+The slug must match the project exactly:
 
-- **Landscape**, roughly 1600×1000 or wider (they're cropped to 16:10 in the card)
-- Blur or redact client names, email addresses, and phone numbers
-- Screenshots of the *system* read best: a Zapier flow, a ClickUp board, a
-  labelled inbox, a colour-coded week
+- `meeting-confirmation-automation`
+- `operational-workflow-system`
+- `inbox-management-system`
+- `calendar-management-system`
+
+`.jpg`, `.jpeg`, `.png` and `.webp` all work.
+
+## The easy path for the Zap proof
+
+Save the three Zapier screenshots as:
+
+```
+public/projects/meeting-confirmation-automation-1.jpg
+public/projects/meeting-confirmation-automation-2.jpg
+public/projects/meeting-confirmation-automation-3.jpg
+```
+
+That's it — no code changes.
+
+## Good screenshots
+
+- Blur or redact client names, emails, and phone numbers
+- Show the system, not the conversation
 - Under ~500 KB each keeps the site fast
+- Long vertical Zaps are perfect for the proof strip (it crops to 3:4 from the top)
 
 ## After adding files
 
 ```bash
-npm run build   # regenerates the static pages
+npm run build
 git add . && git commit -m "Add project screenshots" && git push
 ```
 

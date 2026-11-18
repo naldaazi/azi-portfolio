@@ -6,7 +6,7 @@ import Reveal from "@/components/Reveal";
 import { Footer } from "@/components/Sections";
 import WorkflowDiagram from "@/components/WorkflowDiagram";
 import { site } from "@/lib/content";
-import { projectShot } from "@/lib/shots";
+import { projectShots } from "@/lib/shots";
 
 export function generateStaticParams() {
   return site.projects.map((p) => ({ slug: p.slug }));
@@ -43,6 +43,11 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   const others = site.projects.filter((p) => p.slug !== slug).slice(0, 3);
+
+  /* A plain `<slug>.jpg` is the wide hero; numbered `-1,-2,-3` are the proof strip. */
+  const allShots = projectShots(project.slug);
+  const heroShot = allShots.find((s) => !/-\d+\.[a-z]+$/i.test(s)) ?? null;
+  const proof = allShots.filter((s) => s !== heroShot);
 
   return (
     <>
@@ -90,22 +95,18 @@ export default async function ProjectPage({
               ))}
             </div>
 
-            {(() => {
-              const shot = projectShot(project.slug);
-              if (!shot) return null;
-              return (
-                <div className="detail-shot">
-                  <Image
-                    src={shot}
-                    alt={`${project.title} — screen`}
-                    fill
-                    priority
-                    sizes="(min-width: 900px) 900px, 92vw"
-                    style={{ objectFit: "cover", objectPosition: "top left" }}
-                  />
-                </div>
-              );
-            })()}
+            {heroShot && (
+              <div className="detail-shot">
+                <Image
+                  src={heroShot}
+                  alt={`${project.title} — screen`}
+                  fill
+                  priority
+                  sizes="(min-width: 900px) 900px, 92vw"
+                  style={{ objectFit: "cover", objectPosition: "top left" }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="detail-body" style={{ padding: "26px 0 0", marginTop: 24 }}>
@@ -131,6 +132,32 @@ export default async function ProjectPage({
                 <div style={{ marginTop: 34 }}>
                   <span className="label">The workflow, running</span>
                   <WorkflowDiagram />
+                </div>
+              )}
+
+              {proof.length > 0 && (
+                <div style={{ marginTop: 30 }}>
+                  <span className="label">Proof · the actual Zap</span>
+                  <div className="proof-grid">
+                    {proof.map((src, i) => (
+                      <a
+                        key={src}
+                        className="proof-item"
+                        href={src}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Open screenshot ${i + 1} of the Zap, full size`}
+                      >
+                        <Image
+                          src={src}
+                          alt={`Zapier step screenshots, part ${i + 1}`}
+                          fill
+                          sizes="(min-width: 900px) 240px, 45vw"
+                          style={{ objectFit: "cover", objectPosition: "top" }}
+                        />
+                      </a>
+                    ))}
+                  </div>
                 </div>
               )}
 

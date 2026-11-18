@@ -1,18 +1,37 @@
 import fs from "node:fs";
 import path from "node:path";
 
+const EXTS = ["webp", "jpg", "jpeg", "png"];
+
 /**
- * Looks for a project screenshot in `public/projects/<slug>.<ext>` at build time.
- * Drop a file in that folder and it replaces the illustrative mock automatically.
+ * Finds every screenshot for a project in `public/projects/`.
+ * Accepts `<slug>.jpg` and `<slug>-1.jpg`, `<slug>-2.jpg`, … (sorted by number).
+ * Runs at build time, so dropping a file in the folder is all it takes.
  */
-export function projectShot(slug: string): string | null {
-  for (const ext of ["webp", "jpg", "jpeg", "png"]) {
-    const rel = `/projects/${slug}.${ext}`;
-    try {
-      if (fs.existsSync(path.join(process.cwd(), "public", rel))) return rel;
-    } catch {
-      return null;
-    }
+export function projectShots(slug: string): string[] {
+  const dir = path.join(process.cwd(), "public", "projects");
+
+  let files: string[];
+  try {
+    files = fs.readdirSync(dir);
+  } catch {
+    return [];
   }
-  return null;
+
+  const found: { file: string; n: number }[] = [];
+
+  for (const file of files) {
+    const m = file.match(/^(.*?)(?:-(\d+))?\.(webp|jpe?g|png)$/i);
+    if (!m) continue;
+    if (m[1].toLowerCase() !== slug.toLowerCase()) continue;
+    found.push({ file, n: m[2] ? parseInt(m[2], 10) : 0 });
+  }
+
+  found.sort((a, b) => a.n - b.n);
+  return found.map((f) => `/projects/${f.file}`);
+}
+
+/** The first screenshot, used as the card / hero image. */
+export function projectShot(slug: string): string | null {
+  return projectShots(slug)[0] ?? null;
 }

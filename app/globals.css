@@ -1994,6 +1994,58 @@ a.pcard:hover {
   color: var(--faint);
 }
 
+/* ── Proof strip ─────────────────────────────────────────── */
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+@media (min-width: 620px) {
+  .proof-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* One wide screenshot (a board, a dashboard) gets a wide frame, not a crop. */
+  .proof-grid:has(> :only-child) {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-grid:has(> :only-child) .proof-item {
+    aspect-ratio: 16 / 10;
+  }
+
+  .proof-grid:has(> :nth-child(2):last-child) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .proof-grid:has(> :nth-child(2):last-child) .proof-item {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.proof-item {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  background: var(--card-2);
+  transition:
+    transform 0.22s var(--ease),
+    box-shadow 0.22s var(--ease),
+    border-color 0.22s var(--ease);
+}
+
+.proof-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--hair-strong);
+}
+
 .wf-live {
   width: 7px;
   height: 7px;
