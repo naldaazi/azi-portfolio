@@ -87,9 +87,9 @@ export default function LiveFlow() {
 
       <p className="flow-status" aria-live="polite">
         {done
-          ? "Run complete · 15 steps, no manual input"
+          ? "Run complete · 15 Zapier steps, no manual input"
           : index === 0
-            ? "Armed · waiting for a new row"
+            ? "Armed · 15 Zapier steps, grouped into 7 stages"
             : `Running · step ${index} of ${STEPS.length}`}
       </p>
 
