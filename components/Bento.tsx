@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Image from "next/image";
 import { site } from "@/lib/content";
 import { projectShot } from "@/lib/shots";
 
